@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 800 1000" role="img" aria-label="ÉLORIA Duo">
+  <defs><radialGradient id="bg" cx="50%" cy="40%" r="75%"><stop offset="0" stop-color="#FFFFFF"/><stop offset=".55" stop-color="#F5EEE8"/><stop offset="1" stop-color="#E7D7C9"/></radialGradient></defs>
+  <rect width="800" height="1000" fill="url(#bg)"/>
+  <image href="eloria-smart-mirror.svg" x="-40" y="40" width="640" height="800"/>
+  <image href="eloria-smart-comb.svg" x="330" y="420" width="440" height="550"/>
+</svg>

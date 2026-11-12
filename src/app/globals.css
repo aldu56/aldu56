@@ -1,0 +1,80 @@
+@import "tailwindcss";
+
+@theme {
+  --color-champagne: #d8c1ae;
+  --color-ivory: #f5eee8;
+  --color-cream: #faf6f1;
+  --color-rosegold: #b99a83;
+  --color-rosegold-dark: #9c7e68;
+  --color-cocoa: #49352b;
+  --color-cocoa-soft: #6f584b;
+  --color-mist: #ede3da;
+
+  --font-serif: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
+  --font-sans: var(--font-inter), "Inter", system-ui, sans-serif;
+
+  --shadow-soft: 0 10px 40px -12px rgb(73 53 43 / 0.18);
+  --shadow-lux: 0 30px 80px -30px rgb(73 53 43 / 0.35);
+
+  --animate-fade-up: fade-up 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-float: float 7s ease-in-out infinite;
+  --animate-scan: scan 2.4s ease-in-out infinite;
+  --animate-shimmer: shimmer 2.5s linear infinite;
+
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+  @keyframes scan {
+    0% { top: 6%; opacity: 0; }
+    15% { opacity: 1; }
+    85% { opacity: 1; }
+    100% { top: 92%; opacity: 0; }
+  }
+  @keyframes shimmer {
+    from { background-position: -200% 0; }
+    to { background-position: 200% 0; }
+  }
+}
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--color-cream);
+    color: var(--color-cocoa);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 500; letter-spacing: -0.01em; }
+  ::selection { background: var(--color-champagne); color: var(--color-cocoa); }
+  :focus-visible { outline: 2px solid var(--color-rosegold); outline-offset: 2px; }
+}
+
+@layer components {
+  .eyebrow {
+    @apply text-[11px] font-medium uppercase tracking-[0.32em] text-rosegold;
+  }
+  .gold-line {
+    background: linear-gradient(90deg, transparent, var(--color-rosegold), transparent);
+    height: 1px;
+  }
+  .gold-text {
+    background: linear-gradient(120deg, #9c7e68 0%, #d8c1ae 40%, #b99a83 60%, #8a6c57 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .glass {
+    background: rgb(255 255 255 / 0.6);
+    backdrop-filter: blur(14px);
+  }
+  .skeleton {
+    background: linear-gradient(90deg, var(--color-ivory), #fff, var(--color-ivory));
+    background-size: 200% 100%;
+    @apply animate-shimmer rounded-xl;
+  }
+}

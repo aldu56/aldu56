@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" role="img" aria-label="ÉLORIA Smart Mirror">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="38%" r="75%"><stop offset="0" stop-color="#FFFFFF"/><stop offset=".55" stop-color="#F5EEE8"/><stop offset="1" stop-color="#E7D7C9"/></radialGradient>
+    <linearGradient id="frame" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#E9D5C3"/><stop offset=".35" stop-color="#B99A83"/><stop offset=".6" stop-color="#F3E3D3"/><stop offset="1" stop-color="#9C7E68"/></linearGradient>
+    <radialGradient id="glass" cx="42%" cy="35%" r="70%"><stop offset="0" stop-color="#FFFFFF"/><stop offset=".6" stop-color="#F3ECE6"/><stop offset="1" stop-color="#DCCBBE"/></radialGradient>
+    <radialGradient id="halo" cx="50%" cy="50%" r="50%"><stop offset=".82" stop-color="#FFF8EF" stop-opacity="0"/><stop offset=".9" stop-color="#FFF6EA" stop-opacity=".95"/><stop offset="1" stop-color="#FFF6EA" stop-opacity="0"/></radialGradient>
+    <filter id="sh" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="30" stdDeviation="30" flood-color="#49352B" flood-opacity=".22"/></filter>
+  </defs>
+  <rect width="800" height="1000" fill="url(#bg)"/>
+  <ellipse cx="400" cy="905" rx="210" ry="26" fill="#49352B" opacity=".12"/>
+  <g filter="url(#sh)">
+    <path d="M370 640 L430 640 L445 870 L355 870 Z" fill="url(#frame)"/>
+    <ellipse cx="400" cy="878" rx="150" ry="22" fill="url(#frame)"/>
+    <circle cx="400" cy="400" r="270" fill="url(#frame)"/>
+    <circle cx="400" cy="400" r="250" fill="url(#glass)"/>
+    <circle cx="400" cy="400" r="250" fill="url(#halo)"/>
+    <circle cx="400" cy="400" r="236" fill="none" stroke="#FFFFFF" stroke-opacity=".9" stroke-width="3"/>
+    <path d="M250 260 Q320 190 420 175" stroke="#FFFFFF" stroke-width="16" stroke-linecap="round" opacity=".55" fill="none"/>
+    <circle cx="400" cy="170" r="6" fill="#49352B" opacity=".75"/>
+    <g font-family="Georgia, serif" fill="#49352B" text-anchor="middle">
+      <text x="400" y="410" font-size="38" letter-spacing="10" opacity=".85">ÉLORIA</text>
+      <text x="400" y="440" font-size="11" letter-spacing="6" font-family="Helvetica, Arial" opacity=".6">SKIN • HAIR</text>
+    </g>
+    <g font-family="Helvetica, Arial" fill="#49352B" opacity=".55" font-size="12" letter-spacing="2">
+      <text x="300" y="560">HYDRATION 82%</text>
+    </g>
+  </g>
+</svg>

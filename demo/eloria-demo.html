@@ -10,6 +10,7 @@
 <style>
 :root{--champagne:#D8C1AE;--ivory:#F5EEE8;--cream:#FAF6F1;--rose:#B99A83;--rose-d:#9C7E68;--cocoa:#49352B;--cocoa-s:#6F584B;--white:#fff;--shadow:0 10px 40px -12px rgb(73 53 43/.18);--lux:0 30px 80px -30px rgb(73 53 43/.35)}
 *{box-sizing:border-box;margin:0;padding:0}
+[hidden]{display:none!important}
 body{background:var(--cream);color:var(--cocoa);font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.5}
 h1,h2,h3,.serif{font-family:"Cormorant Garamond",Georgia,serif;font-weight:500;letter-spacing:-.01em;line-height:1.05}
 a{color:inherit;text-decoration:none}
@@ -441,15 +442,15 @@ function vScan(kind, err = "") {
       <div id="camIdle" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;color:var(--cream)">
         <div style="font-size:40px;color:var(--champagne)">📷</div>
         <p class="serif" style="font-size:24px;margin-top:8px" id="camTitle">${isMobile() ? "Usa la cámara de tu dispositivo" : "Usa la cámara de tu ordenador"}</p>
-        <p class="small" style="opacity:.8;max-width:340px;margin-top:6px" id="camerr">Te pediremos permiso para acceder a la cámara.</p>
-        <button class="btn goldb" style="margin-top:18px" onclick="startCam()">Activar cámara</button>
+        <p class="small" style="opacity:.8;max-width:340px;margin-top:6px" id="camerr">${isMobile() ? "Se abrirá la cámara de tu móvil o tablet. Haz la foto y pulsa «Usar foto»." : "Te pediremos permiso para acceder a la cámara."}</p>
+        ${isMobile() ? `<label class="btn goldb" style="margin-top:18px" for="camIn">Abrir cámara</label>` : `<button class="btn goldb" style="margin-top:18px" onclick="startCam()">Activar cámara</button>`}
       </div>
     </div>
     <div class="camtools" id="camLive" hidden>
       <button class="btn" onclick="capture()">● Capturar</button>
-      ${isMobile() ? `<button class="btn out" onclick="flipCam()">⟲ Girar cámara</button>` : ""}
+
     </div>
-    <div class="camtools"><label class="btn ghost sm" for="camIn" id="nativeCam" ${isMobile() ? "" : "hidden"}>Abrir la cámara del sistema</label></div>
+    <span id="nativeCam" hidden></span>
     <input type="file" id="camIn" accept="image/*" capture="${front ? "user" : "environment"}" hidden>
   </div>
   <div id="pUp" hidden><label class="drop" id="drop"><div style="font-size:36px;color:var(--rose)">⇪</div><p class="serif" style="font-size:24px;margin-top:8px">Arrastra una foto o elige un archivo</p><p class="xs muted">JPEG, PNG o WebP · hasta 8 MB</p><input type="file" id="file" accept="image/jpeg,image/png,image/webp" hidden></label></div>
@@ -509,6 +510,7 @@ let facing = null;
 function scanTab(t) {
   $("#tUp").classList.toggle("on", t === "up"); $("#tCam").classList.toggle("on", t === "cam"); $("#pUp").hidden = t !== "up"; $("#pCam").hidden = t !== "cam";
   if (t !== "cam") stopCam();
+  else if (isMobile()) $("#camIn").click(); // runs inside the tap, so the browser allows it
 }
 function camMessage(text, showNative = true) {
   $("#camIdle").hidden = false; $("#vid").hidden = true; $("#guide").hidden = true; $("#camLive").hidden = true;
@@ -516,6 +518,7 @@ function camMessage(text, showNative = true) {
   if (showNative) $("#nativeCam").hidden = false;
 }
 async function startCam() {
+  if (isMobile()) return $("#camIn").click();
   const kind = curKind();
   facing = facing || (kind === "skin" ? "user" : "environment");
   const canLive = window.isSecureContext && navigator.mediaDevices && navigator.mediaDevices.getUserMedia;

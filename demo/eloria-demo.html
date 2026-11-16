@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#FAF6F1">
+<meta name="theme-color" content="#e2c8b7">
 <title>ÉLORIA Demo</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{--champagne:#D8C1AE;--ivory:#F5EEE8;--cream:#FAF6F1;--rose:#B99A83;--rose-d:#9C7E68;--cocoa:#49352B;--cocoa-s:#6F584B;--white:#fff;--shadow:0 10px 40px -12px rgb(73 53 43/.18);--lux:0 30px 80px -30px rgb(73 53 43/.35)}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -126,6 +126,100 @@ main.m{padding:40px 44px;min-width:0}
 @media (max-width:400px){
  .sel-cards{grid-template-columns:1fr 1fr!important}
  .sel-cards:not(.four) label:nth-child(3){grid-column:span 2}
+}
+
+/* ============ SATIN GLASS THEME ============ */
+:root{
+ --satin:#d9bfad;--satin-l:#ecd9cb;--satin-d:#c3a28d;
+ --cocoa:#3f3029;--cocoa-s:#6b574b;--choc:#4a382e;--choc-l:#6e5546;
+ --champagne:#e6d2c3;--ivory:rgb(255 255 255/.38);--cream:#f3e6dc;--rose:#8a6d5c;--rose-d:#5e483c;
+ --glass:rgb(255 247 241/.42);--glass-strong:rgb(255 248 243/.62);--glass-b:rgb(255 255 255/.62);
+ --shadow:0 18px 40px -22px rgb(63 48 41/.45),inset 0 1px 0 rgb(255 255 255/.7);
+ --lux:0 40px 80px -30px rgb(63 48 41/.55);
+}
+html{background:#cdb09c}
+body{color:var(--cocoa);background:
+ radial-gradient(120% 70% at 85% -10%,rgb(255 245 236/.95),transparent 55%),
+ radial-gradient(90% 60% at -10% 40%,rgb(255 240 228/.7),transparent 60%),
+ radial-gradient(80% 60% at 110% 90%,rgb(196 160 138/.55),transparent 60%),
+ linear-gradient(160deg,#ecd8ca 0%,#dcc0ae 45%,#cfb09c 100%);background-attachment:fixed;min-height:100vh}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.75;background-size:cover;background-position:center;
+ background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 900' preserveAspectRatio='none'><defs><linearGradient id='a' x1='0' y1='0' x2='1' y2='0'><stop offset='0' stop-color='%23fff' stop-opacity='0'/><stop offset='.5' stop-color='%23fff' stop-opacity='.85'/><stop offset='1' stop-color='%23fff' stop-opacity='0'/></linearGradient><filter id='b'><feGaussianBlur stdDeviation='6'/></filter></defs><g fill='none' stroke='url(%23a)' stroke-linecap='round'><path d='M-50 210 C 250 60, 520 360, 820 190 S 1150 40, 1260 120' stroke-width='3' filter='url(%23b)'/><path d='M-50 210 C 250 60, 520 360, 820 190 S 1150 40, 1260 120' stroke-width='1'/><path d='M-60 640 C 200 520, 480 760, 760 610 S 1100 470, 1270 560' stroke-width='4' filter='url(%23b)'/><path d='M-60 640 C 200 520, 480 760, 760 610 S 1100 470, 1270 560' stroke-width='1.2'/><path d='M300 920 C 520 760, 820 860, 1260 700' stroke-width='2.5' filter='url(%23b)' opacity='.7'/></g></svg>")}
+#app{position:relative;z-index:1}
+h1,h2,h3,.serif{font-family:"Cormorant Garamond",Georgia,serif;font-style:italic;font-weight:500;color:var(--cocoa)}
+h1{font-weight:600}
+.eyebrow{color:var(--rose);letter-spacing:.26em}
+.muted{color:var(--cocoa-s)}
+.gold{background:none;-webkit-background-clip:initial;background-clip:initial;color:var(--choc-l)}
+/* glass surfaces */
+.card{background:var(--glass);border:1px solid var(--glass-b);border-radius:26px;box-shadow:var(--shadow);-webkit-backdrop-filter:blur(18px) saturate(140%);backdrop-filter:blur(18px) saturate(140%)}
+.reco{background:rgb(255 250 246/.35);border:1px solid var(--glass-b);border-radius:20px;box-shadow:inset 0 1px 0 rgb(255 255 255/.6)}
+.notice{background:var(--glass-strong);border:1px solid var(--glass-b);border-radius:999px;backdrop-filter:blur(14px);text-align:center;box-shadow:var(--shadow)}
+.ivory{background:transparent}
+section.s.ivory{background:linear-gradient(180deg,transparent,rgb(255 245 238/.35),transparent)}
+/* buttons */
+.btn{border-radius:999px;font-weight:500;letter-spacing:.01em}
+.btn,.btn.goldb{color:#f6ebe2;border:1px solid rgb(255 255 255/.25);
+ background:radial-gradient(120% 140% at 30% 0%,#7a604f 0%,#4a382e 45%,#33261f 100%);
+ box-shadow:0 10px 24px -10px rgb(51 38 31/.7),inset 0 1px 0 rgb(255 255 255/.25),0 0 0 3px rgb(255 255 255/.28)}
+.btn:hover,.btn.goldb:hover{filter:brightness(1.08);background:radial-gradient(120% 140% at 30% 0%,#836856 0%,#523e33 45%,#3a2b23 100%)}
+.btn.out{background:var(--glass-strong);color:var(--cocoa);border:1px solid var(--glass-b);box-shadow:var(--shadow);backdrop-filter:blur(12px)}
+.btn.out:hover{background:rgb(255 250 246/.8);border-color:#fff}
+.btn.ghost{background:transparent;color:var(--cocoa);border:0;box-shadow:none}
+.btn.ghost:hover{background:var(--glass)}
+/* inputs */
+input,select{background:rgb(255 250 246/.55);border:1px solid var(--glass-b);border-radius:16px;box-shadow:inset 0 1px 2px rgb(63 48 41/.08);backdrop-filter:blur(8px)}
+input:focus,select:focus{border-color:#fff;box-shadow:0 0 0 4px rgb(255 255 255/.45)}
+label.l{color:var(--cocoa-s)}
+.sel-cards label{background:var(--glass);border:1px solid var(--glass-b);border-radius:18px;box-shadow:inset 0 1px 0 rgb(255 255 255/.6)}
+.sel-cards label:has(input:checked){background:var(--glass-strong);border-color:#fff;box-shadow:var(--shadow),0 0 0 2px var(--choc)}
+.sel-cards .ic{color:var(--choc)}
+/* badges, bars, misc */
+.badge{background:rgb(255 250 246/.55);border:1px solid var(--glass-b);color:var(--cocoa)}
+.badge.line{background:transparent;border-color:rgb(107 87 75/.35)}
+.bar{height:6px;background:rgb(255 255 255/.55);box-shadow:inset 0 1px 2px rgb(63 48 41/.12)}
+.bar>i{background:linear-gradient(90deg,#3f3029,#6e5546)}
+.icon{background:var(--glass-strong);border:1px solid var(--glass-b);color:var(--choc);box-shadow:var(--shadow)}
+.chk{background:rgb(255 255 255/.55);border-color:var(--glass-b)}
+.chk.on{background:radial-gradient(120% 140% at 30% 0%,#7a604f,#3f3029);border-color:#fff}
+.alert.err{background:rgb(255 236 236/.7);border:1px solid rgb(255 255 255/.6)}
+.alert.ok{background:rgb(236 250 243/.7);border:1px solid rgb(255 255 255/.6)}
+.tabs{background:rgb(255 255 255/.3);border:1px solid var(--glass-b);backdrop-filter:blur(10px)}
+.tabs button.on{background:var(--glass-strong);box-shadow:var(--shadow);color:var(--cocoa)}
+.drop{background:rgb(255 250 246/.3);border-color:rgb(255 255 255/.75)}
+.drop:hover{background:rgb(255 250 246/.5)}
+.stage{background:linear-gradient(160deg,#5a463a,#2f241e);border:1px solid var(--glass-b)}
+.list>li{border-bottom:1px solid rgb(255 255 255/.5)}
+.toast{background:var(--glass-strong);border:1px solid #fff;backdrop-filter:blur(16px)}
+/* header / footer / hero */
+header.site{background:rgb(240 224 212/.5);border-bottom:1px solid rgb(255 255 255/.55);backdrop-filter:blur(16px)}
+.logo b{font-family:"Cormorant Garamond",Georgia,serif;font-style:normal;font-weight:500;color:var(--cocoa)}
+.logo span{color:var(--rose)}
+.logo::before{content:"✦";font-size:11px;color:var(--rose);margin-bottom:3px}
+.hero{background:transparent}
+.hero h1 em{font-weight:500}
+.scanline{background:linear-gradient(90deg,transparent,#fff,transparent);box-shadow:0 0 20px #fff}
+.dark{background:radial-gradient(120% 120% at 20% 0%,#5a463a,#2f241e 70%);color:#f3e6dc}
+.dark h2,.dark .serif{color:#f3e6dc}
+footer{background:rgb(255 245 238/.3);border-top:1px solid rgb(255 255 255/.55);backdrop-filter:blur(10px)}
+/* product art frames */
+.pcard>div:first-child,.heroimgs>div{background:linear-gradient(160deg,#f0e0d4,#d6b9a6)}
+/* dashboard */
+aside.side{background:rgb(250 238 230/.45);border-right:1px solid rgb(255 255 255/.55);backdrop-filter:blur(20px)}
+aside.side a.nav{color:var(--cocoa-s)}
+aside.side a.nav span{color:var(--choc)!important}
+aside.side a.nav:hover{background:rgb(255 255 255/.35)}
+aside.side a.nav.on{background:var(--glass-strong);color:var(--cocoa);box-shadow:var(--shadow);border:1px solid var(--glass-b)}
+aside.side>div:nth-of-type(1){background:var(--glass)!important;border:1px solid var(--glass-b)}
+@media (max-width:900px){
+ .mobilebar{background:rgb(240 224 212/.55)!important;border-bottom:1px solid rgb(255 255 255/.55)!important;backdrop-filter:blur(16px)}
+ .bnav{left:12px;right:12px;bottom:10px;border-radius:26px;background:rgb(250 238 230/.6)!important;border:1px solid var(--glass-b)!important;box-shadow:var(--lux),inset 0 1px 0 rgb(255 255 255/.7);backdrop-filter:blur(22px) saturate(140%);padding:6px 4px!important;margin-bottom:env(safe-area-inset-bottom)}
+ .bnav a{color:var(--cocoa-s)}
+ .bnav a b{color:var(--cocoa-s)}
+ .bnav a.on{background:transparent;color:var(--cocoa);font-weight:600}
+ .bnav a.on b{color:var(--cocoa)}
+ .bnav a.on::after{content:"";position:absolute;bottom:2px;left:30%;right:30%;height:2px;border-radius:2px;background:var(--cocoa)}
+ main.m{padding-bottom:120px}
 }
 </style>
 </head>
@@ -301,8 +395,8 @@ const KIND = { skin: { device: "mirror", name: "GlowMirrorPro", title: "Piel" },
 function ring(score, size = 150) {
   const st = size * 0.07, r = (size - st) / 2, c = 2 * Math.PI * r, off = c - (score / 100) * c;
   return `<div style="position:relative;width:${size}px;height:${size}px;display:inline-grid;place-items:center">
-  <svg width="${size}" height="${size}" style="transform:rotate(-90deg)"><defs><linearGradient id="rg${size}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#D8C1AE"/><stop offset="1" stop-color="#9C7E68"/></linearGradient></defs>
-  <circle cx="${size / 2}" cy="${size / 2}" r="${r}" fill="none" stroke="#F5EEE8" stroke-width="${st}"/>
+  <svg width="${size}" height="${size}" style="transform:rotate(-90deg)"><defs><linearGradient id="rg${size}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7a604f"/><stop offset="1" stop-color="#33261f"/></linearGradient></defs>
+  <circle cx="${size / 2}" cy="${size / 2}" r="${r}" fill="none" stroke="rgb(255 255 255 / .55)" stroke-width="${st}"/>
   <circle cx="${size / 2}" cy="${size / 2}" r="${r}" fill="none" stroke="url(#rg${size})" stroke-width="${st}" stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${off}"/></svg>
   <div style="position:absolute;text-align:center"><div class="serif" style="font-size:${size * 0.3}px;line-height:1">${score}</div><div class="xs muted" style="letter-spacing:.2em;text-transform:uppercase;margin-top:4px">${scoreLabel(score)}</div></div></div>`;
 }
@@ -311,20 +405,20 @@ function lineChart(points) {
   const W = 640, H = 220, p = 30, xs = (i) => p + (i * (W - 2 * p)) / (points.length - 1), ys = (v) => H - p - (v / 100) * (H - 2 * p);
   const d = points.map((pt, i) => `${i ? "L" : "M"}${xs(i)},${ys(pt.v)}`).join("");
   const area = `${d}L${xs(points.length - 1)},${H - p}L${xs(0)},${H - p}Z`;
-  const grid = [0, 25, 50, 75, 100].map((g) => `<line x1="${p}" x2="${W - p}" y1="${ys(g)}" y2="${ys(g)}" stroke="#F5EEE8"/><text x="4" y="${ys(g) + 4}" font-size="10" fill="#6F584B">${g}</text>`).join("");
-  const dots = points.map((pt, i) => `<circle cx="${xs(i)}" cy="${ys(pt.v)}" r="4" fill="#9C7E68"><title>${pt.l}: ${pt.v}</title></circle>`).join("");
+  const grid = [0, 25, 50, 75, 100].map((g) => `<line x1="${p}" x2="${W - p}" y1="${ys(g)}" y2="${ys(g)}" stroke="rgb(255 255 255 / .55)"/><text x="4" y="${ys(g) + 4}" font-size="10" fill="#6F584B">${g}</text>`).join("");
+  const dots = points.map((pt, i) => `<circle cx="${xs(i)}" cy="${ys(pt.v)}" r="4" fill="#3f3029" stroke="#fff" stroke-width="1.5"><title>${pt.l}: ${pt.v}</title></circle>`).join("");
   const labels = points.map((pt, i) => (i === 0 || i === points.length - 1 || points.length <= 6 ? `<text x="${xs(i)}" y="${H - 8}" font-size="10" fill="#6F584B" text-anchor="middle">${pt.l}</text>` : "")).join("");
-  return `<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto"><defs><linearGradient id="ar" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#B99A83" stop-opacity=".45"/><stop offset="1" stop-color="#B99A83" stop-opacity="0"/></linearGradient></defs>${grid}<path d="${area}" fill="url(#ar)"/><path d="${d}" fill="none" stroke="#9C7E68" stroke-width="2.5"/>${dots}${labels}</svg>`;
+  return `<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto"><defs><linearGradient id="ar" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a382e" stop-opacity=".28"/><stop offset="1" stop-color="#4a382e" stop-opacity="0"/></linearGradient></defs>${grid}<path d="${area}" fill="url(#ar)"/><path d="${d}" fill="none" stroke="#3f3029" stroke-width="2.2"/>${dots}${labels}</svg>`;
 }
 function radar(kind, h, prev) {
   const keys = Object.keys(LABELS[kind]), N = keys.length, S = 320, c = S / 2, R = 105;
   const pt = (i, v) => { const a = -Math.PI / 2 + (i * 2 * Math.PI) / N; return [c + Math.cos(a) * R * v / 100, c + Math.sin(a) * R * v / 100]; };
   const poly = (vals) => vals.map((v, i) => pt(i, v).join(",")).join(" ");
-  const rings = [25, 50, 75, 100].map((g) => `<polygon points="${poly(keys.map(() => g))}" fill="none" stroke="#EDE3DA"/>`).join("");
+  const rings = [25, 50, 75, 100].map((g) => `<polygon points="${poly(keys.map(() => g))}" fill="none" stroke="rgb(255 255 255 / .7)"/>`).join("");
   const labels = keys.map((k, i) => { const [x, y] = pt(i, 128); return `<text x="${x}" y="${y}" font-size="10.5" fill="#6F584B" text-anchor="middle" dominant-baseline="middle">${LABELS[kind][k]}</text>`; }).join("");
   return `<svg viewBox="-30 0 380 ${S}" style="width:100%;max-width:420px;display:block;margin:auto">${rings}
-  ${prev ? `<polygon points="${poly(keys.map((k) => prev[k]))}" fill="#D8C1AE" fill-opacity=".15" stroke="#D8C1AE" stroke-dasharray="4 4"/>` : ""}
-  <polygon points="${poly(keys.map((k) => h[k]))}" fill="#B99A83" fill-opacity=".35" stroke="#9C7E68" stroke-width="2"/>${labels}</svg>`;
+  ${prev ? `<polygon points="${poly(keys.map((k) => prev[k]))}" fill="#fff" fill-opacity=".25" stroke="#fff" stroke-dasharray="4 4"/>` : ""}
+  <polygon points="${poly(keys.map((k) => h[k]))}" fill="#4a382e" fill-opacity=".22" stroke="#3f3029" stroke-width="2"/>${labels}</svg>`;
 }
 function bars(kind, h, prev) {
   return Object.keys(LABELS[kind]).map((k) => {
@@ -389,7 +483,7 @@ function shell(active, content) {
   return `<div class="mobilebar"><a class="logo" href="#/" style="align-items:flex-start"><b style="font-size:21px">ÉLORIA</b><span>SKIN • HAIR</span></a><span class="small muted" style="text-align:right;line-height:1.2">Bienvenida/o,<br><b class="serif" style="font-size:17px;color:var(--cocoa)">${esc(u.name.split(" ")[0])}</b></span></div>
   <div class="dash"><aside class="side"><a class="logo" href="#/" style="align-items:flex-start;margin:0 8px 30px"><b>ÉLORIA</b><span>SKIN • HAIR</span></a>
   <div style="background:rgb(255 255 255/.7);border-radius:16px;padding:14px 16px;margin-bottom:20px"><div class="xs muted" style="letter-spacing:.2em;text-transform:uppercase">Bienvenida/o</div><div class="serif" style="font-size:21px">${esc(u.name)}</div>
-  <div style="margin-top:6px;display:flex;gap:6px">${m ? `<span class="badge">GlowMirrorPro</span>` : ""}${c ? `<span class="badge">GlowBrushPro</span>` : ""}${!m && !c ? `<span class="xs muted">Sin dispositivos</span>` : ""}</div></div>
+  <div style="margin-top:8px;display:flex;flex-wrap:wrap;gap:6px">${m ? `<span class="badge" style="font-size:9.5px;letter-spacing:.1em;padding:3px 10px">GlowMirrorPro</span>` : ""}${c ? `<span class="badge" style="font-size:9.5px;letter-spacing:.1em;padding:3px 10px">GlowBrushPro</span>` : ""}${!m && !c ? `<span class="xs muted">Sin dispositivos</span>` : ""}</div></div>
   ${items.map(([k, ic, l, lock]) => `<a class="nav ${active === k ? "on" : ""}" href="#/${k === "dashboard" ? "dashboard" : k}"><span style="width:16px;color:var(--rose)">${ic}</span>${l}${lock ? `<span class="lock">🔒</span>` : ""}</a>`).join("")}
   <a class="nav" style="margin-top:auto" onclick="logout()">↩ Cerrar sesión</a></aside>
   <main class="m">${content}</main></div>

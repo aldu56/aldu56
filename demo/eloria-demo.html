@@ -131,8 +131,8 @@ main.m{padding:40px 44px;min-width:0}
 /* ============ SATIN GLASS THEME ============ */
 :root{
  --satin:#d9bfad;--satin-l:#ecd9cb;--satin-d:#c3a28d;
- --cocoa:#3f3029;--cocoa-s:#6b574b;--choc:#4a382e;--choc-l:#6e5546;
- --champagne:#e6d2c3;--ivory:rgb(255 255 255/.38);--cream:#f3e6dc;--rose:#8a6d5c;--rose-d:#5e483c;
+ --cocoa:#3f3029;--cocoa-s:#52403a;--choc:#4a382e;--choc-l:#6e5546;
+ --champagne:#e6d2c3;--ivory:rgb(255 255 255/.38);--cream:#f3e6dc;--rose:#644c3f;--rose-d:#5e483c;
  --glass:rgb(255 247 241/.42);--glass-strong:rgb(255 248 243/.62);--glass-b:rgb(255 255 255/.62);
  --shadow:0 18px 40px -22px rgb(63 48 41/.45),inset 0 1px 0 rgb(255 255 255/.7);
  --lux:0 40px 80px -30px rgb(63 48 41/.55);
@@ -148,7 +148,7 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opa
 #app{position:relative;z-index:1}
 h1,h2,h3,.serif{font-family:"Cormorant Garamond",Georgia,serif;font-style:italic;font-weight:500;color:var(--cocoa)}
 h1{font-weight:600}
-.eyebrow{color:var(--rose);letter-spacing:.26em}
+.eyebrow{color:#56423a;letter-spacing:.26em}
 .muted{color:var(--cocoa-s)}
 .gold{background:none;-webkit-background-clip:initial;background-clip:initial;color:var(--choc-l)}
 /* glass surfaces */
@@ -221,6 +221,12 @@ aside.side>div:nth-of-type(1){background:var(--glass)!important;border:1px solid
  .bnav a.on::after{content:"";position:absolute;bottom:2px;left:30%;right:30%;height:2px;border-radius:2px;background:var(--cocoa)}
  main.m{padding-bottom:120px}
 }
+
+/* text on dark surfaces (streak card, dark section, camera stage) */
+.on-dark,.on-dark h1,.on-dark h2,.on-dark h3,.on-dark .serif,.on-dark .muted,.on-dark p{color:#f6ebe2}
+.on-dark .muted,.on-dark .xs,.on-dark .small{color:rgb(246 235 226/.78)}
+.on-dark .eyebrow,.on-dark [style*="--champagne"]{color:#e8cfbd!important}
+.on-dark .btn.out{color:#f6ebe2!important;background:rgb(255 255 255/.12);border-color:rgb(255 255 255/.45)}
 </style>
 </head>
 <body>
@@ -423,7 +429,7 @@ function radar(kind, h, prev) {
 function bars(kind, h, prev) {
   return Object.keys(LABELS[kind]).map((k) => {
     const d = prev ? h[k] - prev[k] : 0;
-    return `<div style="margin-bottom:16px"><div style="display:flex;justify-content:space-between;font-size:14px;margin-bottom:6px"><span>${LABELS[kind][k]}</span><span>${d ? `<span class="xs" style="color:${d > 0 ? "#047857" : "#be123c"}">${d > 0 ? "▲" : "▼"} ${Math.abs(d)}</span> ` : ""}<span class="serif" style="font-size:18px">${h[k]}</span></span></div><div class="bar"><i style="width:${h[k]}%"></i></div></div>`;
+    return `<div style="margin-bottom:16px"><div style="display:flex;justify-content:space-between;font-size:14px;margin-bottom:6px"><span>${LABELS[kind][k]}</span><span>${d ? `<span class="xs" style="color:${d > 0 ? "#035c42" : "#9f1239"}">${d > 0 ? "▲" : "▼"} ${Math.abs(d)}</span> ` : ""}<span class="serif" style="font-size:18px">${h[k]}</span></span></div><div class="bar"><i style="width:${h[k]}%"></i></div></div>`;
   }).join("");
 }
 
@@ -457,7 +463,7 @@ function vHome() {
   </div></div></section>
   <section class="s ivory" id="how"><div class="wrap"><div class="center"><p class="eyebrow">Cómo funciona</p><h2 class="h2" style="margin-top:14px">Del reflejo al <em style="font-weight:300">ritual</em>.</h2></div>
   <div class="grid g3" style="margin-top:50px">${[["01", "Escanea", "Colócate frente al GlowMirrorPro o desliza el GlowBrushPro. La captura tarda segundos."], ["02", "Comprende", "El motor de visión ÉLORIA analiza textura, tono, brillo y equilibrio, y te lo explica."], ["03", "Transforma", "Recibe un ritual personalizado y observa cómo suben tus puntuaciones."]].map(([n, t, d]) => `<div><span class="gold serif" style="font-size:68px;font-weight:300">${n}</span><h3 style="font-size:30px">${t}</h3><p class="small muted" style="margin-top:8px">${d}</p></div>`).join("")}</div></div></section>
-  <section class="s dark"><div class="wrap center"><p class="eyebrow" style="color:var(--champagne)">Pruébalo ahora</p><h2 class="h2" style="color:var(--cream);margin:14px 0 18px">Descubre la experiencia ÉLORIA</h2>
+  <section class="s dark on-dark"><div class="wrap center"><p class="eyebrow" style="color:var(--champagne)">Pruébalo ahora</p><h2 class="h2" style="color:var(--cream);margin:14px 0 18px">Descubre la experiencia ÉLORIA</h2>
   <p style="color:rgb(250 246 241/.75);max-width:560px;margin:0 auto 30px">Crea tu cuenta y elige si tienes el GlowMirrorPro, el GlowBrushPro o ambos. O entra directamente con una cuenta de ejemplo.</p>
   <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap"><a class="btn goldb" href="#/signup">Crear cuenta</a><button class="btn out" style="color:var(--cream);border-color:rgb(216 193 174/.5)" onclick="quickDemo()">Ver demo</button></div></div></section>
   <footer>© ${new Date().getFullYear()} ÉLORIA SKIN • HAIR · Demo local: los datos se guardan solo en este navegador. Los análisis son estéticos y no sustituyen el consejo médico.</footer>`;
@@ -506,7 +512,7 @@ function vDashboard() {
     const list = u[k], last = list[list.length - 1], prev = list[list.length - 2];
     const delta = last && prev ? last.score - prev.score : null;
     return `<div class="card"><div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:16px"><div><p class="eyebrow">${KIND[k].name}</p><h3 style="font-size:28px;margin-top:6px">Puntuación de ${KIND[k].title.toLowerCase()}</h3></div><a class="btn goldb sm" href="#/scan/${k}">Nuevo escaneo</a></div>
-    ${last ? `<div style="display:flex;gap:24px;align-items:center;flex-wrap:wrap"><div class="center">${ring(last.score, 140)}${delta !== null ? `<p class="xs" style="color:${delta >= 0 ? "#047857" : "#be123c"};margin-top:6px">${delta >= 0 ? "+" : ""}${delta} desde el último</p>` : ""}</div><div style="flex:1;min-width:min(100%,220px)">${lineChart(list.map((a) => ({ v: a.score, l: new Date(a.date).toLocaleDateString("es-ES", { day: "numeric", month: "short" }) })))}<a href="#/${k}" class="small" style="color:var(--rose-d)">Informe completo →</a></div></div>`
+    ${last ? `<div style="display:flex;gap:24px;align-items:center;flex-wrap:wrap"><div class="center">${ring(last.score, 140)}${delta !== null ? `<p class="xs" style="color:${delta >= 0 ? "#035c42" : "#9f1239"};margin-top:6px">${delta >= 0 ? "+" : ""}${delta} desde el último</p>` : ""}</div><div style="flex:1;min-width:min(100%,220px)">${lineChart(list.map((a) => ({ v: a.score, l: new Date(a.date).toLocaleDateString("es-ES", { day: "numeric", month: "short" }) })))}<a href="#/${k}" class="small" style="color:var(--rose-d)">Informe completo →</a></div></div>`
       : `<div class="center" style="background:var(--ivory);border-radius:18px;padding:34px"><p class="serif" style="font-size:24px">¿Lista para tu primer análisis?</p><a class="btn" style="margin-top:16px" href="#/scan/${k}">Empezar</a></div>`}</div>`;
   }).join("");
   const steps = u.routine.filter((s) => s.time !== "weekly"), done = steps.filter((s) => u.done[today()]?.includes(s.id)).length, pct = steps.length ? Math.round((done / steps.length) * 100) : 0;
@@ -536,7 +542,7 @@ function vScan(kind, err = "") {
   `<div class="grid gside"><div class="card" id="scanbox">
   <div class="tabs"><button class="on" id="tCam" onclick="scanTab('cam')">📷 Cámara</button><button id="tUp" onclick="scanTab('up')">⇪ Subir foto</button></div>
   <div id="pCam">
-    <div class="stage" id="stage">
+    <div class="stage on-dark" id="stage">
       <video id="vid" playsinline muted autoplay hidden style="${front ? "transform:scaleX(-1)" : ""}"></video>
       <div class="guide" id="guide" hidden><i style="${front ? "width:46%;height:78%;border-radius:50%" : "width:60%;aspect-ratio:1;border-radius:50%"}"></i></div>
       <div id="camIdle" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;color:var(--cream)">
@@ -579,7 +585,7 @@ function vReport(kind, id, isNew) {
   const a = list[i], prev = list[i - 1], h = HEALTH[kind](a.metrics), ph2 = prev ? HEALTH[kind](prev.metrics) : null, d = prev ? a.score - prev.score : null;
   return shell(kind, `<a href="#/${kind}" class="small muted">← ${KIND[kind].title}</a>${isNew ? `<div class="notice" style="margin-top:18px">✦ Análisis completado. Tu ritual se ha actualizado con los resultados de hoy.</div>` : ""}` +
   ph(fmtDate(a.date, true), kind === "skin" ? "Informe de piel" : "Informe capilar", "", `<div style="display:flex;gap:10px"><a class="btn out" href="#/scan/${kind}">Escanear de nuevo</a><button class="btn ghost" onclick="delAnalysis('${kind}','${a.id}')">Eliminar</button></div>`) +
-  `<div class="grid g2"><div class="card" style="padding:0;overflow:hidden">${a.image ? `<img src="${a.image}" alt="" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block">` : ""}<div style="padding:24px;display:flex;gap:22px;align-items:center;flex-wrap:wrap">${ring(a.score, 130)}<div><p class="serif" style="font-size:26px">${scoreLabel(a.score)}</p>${d !== null ? `<p class="small" style="color:${d >= 0 ? "#047857" : "#be123c"}">${d >= 0 ? "+" : ""}${d} vs. escaneo anterior</p>` : ""}<span class="badge" style="margin-top:6px">${esc(a.type)}</span> <span class="badge line">Motor de visión</span></div></div></div>
+  `<div class="grid g2"><div class="card" style="padding:0;overflow:hidden">${a.image ? `<img src="${a.image}" alt="" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block">` : ""}<div style="padding:24px;display:flex;gap:22px;align-items:center;flex-wrap:wrap">${ring(a.score, 130)}<div><p class="serif" style="font-size:26px">${scoreLabel(a.score)}</p>${d !== null ? `<p class="small" style="color:${d >= 0 ? "#035c42" : "#9f1239"}">${d >= 0 ? "+" : ""}${d} vs. escaneo anterior</p>` : ""}<span class="badge" style="margin-top:6px">${esc(a.type)}</span> <span class="badge line">Motor de visión</span></div></div></div>
   <div class="card"><h3 style="font-size:28px">Lo que vemos</h3><p class="serif" style="font-size:21px;margin:12px 0">${esc(a.summary)}</p><ul style="padding-left:18px" class="small muted">${a.observations.map((o) => `<li style="margin-bottom:6px">${esc(o)}</li>`).join("")}</ul>${radar(kind, h, ph2)}</div></div>
   <div class="grid g2" style="margin-top:22px"><div class="card"><h3 style="font-size:28px">Métricas</h3><p class="xs muted" style="margin-bottom:16px">Puntuaciones de salud sobre 100: cuanto más alto, mejor.</p>${bars(kind, h, ph2)}</div>
   <div class="card"><h3 style="font-size:28px;margin-bottom:16px">Tus recomendaciones</h3>${a.recos.map((r) => `<div class="reco"><span class="badge ${r.priority === 1 ? "warn" : r.priority === 3 ? "line" : ""}">${r.priority === 1 ? "Prioridad" : esc(r.category)}</span><p class="serif" style="font-size:21px;margin-top:10px">${esc(r.title)}</p><p class="small muted" style="margin-top:4px">${esc(r.body)}</p>${r.product ? `<p class="small" style="margin-top:10px;background:rgb(245 238 232/.7);padding:10px 14px;border-radius:12px">${esc(r.product)}</p>` : ""}</div>`).join("")}</div></div>`);
@@ -592,7 +598,7 @@ function vRoutine() {
   for (let i = 0; i < 60; i++) { const d = new Date(); d.setDate(d.getDate() - i); const ds = new Date(d - d.getTimezoneOffset() * 6e4).toISOString().slice(0, 10); const c = daily.filter((s) => u.done[ds]?.includes(s.id)).length; if (daily.length && c / daily.length >= 0.5) streak++; else if (i > 0) break; }
   return shell("routine", ph("Ritual diario", "Mi ritual", "Compuesto a partir de tus últimos análisis. Se actualiza cada vez que escaneas.") + `<div class="grid gside"><div>
   ${groups.map(([g, l]) => { const s = u.routine.filter((x) => x.time === g); return s.length ? `<div class="card" style="margin-bottom:18px"><h2 style="font-size:28px">${l}</h2><ul class="list" style="margin-top:8px">${s.map((x) => { const on = doneToday.includes(x.id); return `<li><button class="chk ${on ? "on" : ""}" onclick="toggleStep('${x.id}')" aria-label="Marcar ${esc(x.title)}">${on ? "✓" : ""}</button><span style="flex:1"><span class="small" style="${on ? "text-decoration:line-through;color:var(--cocoa-s)" : ""}">${esc(x.title)}</span><br><span class="xs muted">${esc(x.desc)}</span></span><span class="badge line">${x.kind === "skin" ? "piel" : "capilar"}</span></li>`; }).join("")}</ul></div>` : ""; }).join("")}</div>
-  <div class="card" style="background:var(--cocoa);color:var(--cream);border:0"><p class="xs" style="letter-spacing:.2em;text-transform:uppercase;color:var(--champagne)">Racha</p><p class="serif" style="font-size:64px">${streak} <span style="font-size:22px;opacity:.7">día${streak === 1 ? "" : "s"}</span></p><p class="xs" style="opacity:.6">Días con al menos la mitad de tu ritual completado.</p></div></div>`);
+  <div class="card on-dark" style="background:radial-gradient(120% 140% at 20% 0%,#5a463a,#2f241e 75%);border:1px solid rgb(255 255 255/.35)"><p class="xs" style="letter-spacing:.2em;text-transform:uppercase;color:var(--champagne)">Racha</p><p class="serif" style="font-size:64px">${streak} <span style="font-size:22px;opacity:.7">día${streak === 1 ? "" : "s"}</span></p><p class="xs" style="opacity:.6">Días con al menos la mitad de tu ritual completado.</p></div></div>`);
 }
 
 /* ---------------- actions ---------------- */

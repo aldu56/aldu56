@@ -41,6 +41,7 @@ button,input,select{font:inherit;color:inherit}
 .sel-cards input{display:none}
 .sel-cards input:checked+span{color:var(--cocoa)}
 .sel-cards label:has(input:checked){border-color:var(--rose);background:rgb(216 193 174/.25);box-shadow:var(--shadow)}
+.sel-cards.four{grid-template-columns:repeat(2,minmax(0,1fr))!important}
 .sel-cards .ic{display:block;font-size:22px;color:var(--rose);margin-bottom:4px}
 input,select{width:100%;height:44px;border:1px solid var(--champagne);border-radius:14px;background:#fff;padding:0 14px;font-size:14px}
 input:focus,select:focus{outline:none;border-color:var(--rose);box-shadow:0 0 0 4px rgb(216 193 174/.4)}
@@ -118,8 +119,13 @@ main.m{padding:40px 44px;min-width:0}
  .ph{margin-bottom:22px}.ph>div:last-child:not(:first-child){width:100%}.ph .btn{flex:1}
  .hero h1{font-size:52px}
  .heroimgs{max-width:380px!important}
- .sel-cards{grid-template-columns:1fr 1fr 1fr}
+ .sel-cards{grid-template-columns:repeat(3,minmax(0,1fr))}
+ .sel-cards label{font-size:12.5px;padding:12px 4px}
  .btn{height:46px}
+}
+@media (max-width:400px){
+ .sel-cards{grid-template-columns:1fr 1fr!important}
+ .sel-cards:not(.four) label:nth-child(3){grid-column:span 2}
 }
 </style>
 </head>
@@ -237,7 +243,7 @@ function recommendations(kind, m) {
     add(m.flaking > 45, m.flaking > 60 ? 1 : 2, "Elimina escamas y residuos", "Usa un exfoliante para el cuero cabelludo una vez por semana.", "Descamación", "Clarifying Scalp Scrub · 38 €");
     add(m.sensitivity > 45, m.sensitivity > 60 ? 1 : 2, "Calma la sensibilidad", "Cambia a fórmulas sin perfume y aplica un tónico calmante sin alcohol.", "Sensibilidad", "Soothing Scalp Tonic · 36 €");
     add(m.density < 55 || m.follicle_health < 60, 2, "Estimula la vitalidad folicular", "Un sérum nocturno con cafeína y romero y dos minutos de masaje estimulan la circulación.", "Densidad", "Follicle Vital Serum · 59 €");
-    r.push({ priority: 3, title: "Pasa el peine cada día", body: "Una sesión diaria con el Smart Comb distribuye los aceites naturales y sigue tu evolución.", category: "Hábito", product: null });
+    r.push({ priority: 3, title: "Pasa el peine cada día", body: "Una sesión diaria con el GlowBrushPro distribuye los aceites naturales y sigue tu evolución.", category: "Hábito", product: null });
   }
   return r.sort((a, b) => a.priority - b.priority);
 }
@@ -252,22 +258,22 @@ function routine(kind, m) {
     s("evening", "Sérum hidratante", "Sobre la piel húmeda"),
     ...(m.wrinkles > 45 || m.elasticity < 55 ? [s("evening", "Tratamiento con retinal", "2–3 noches por semana")] : []),
     s("evening", "Crema de noche", "Sella la hidratación"),
-    s("weekly", "Escaneo con el Smart Mirror", "Con la misma luz cada semana"),
+    s("weekly", "Escaneo con el GlowMirrorPro", "Con la misma luz cada semana"),
   ];
   return [
-    s("morning", "Sesión con el Smart Comb", "Dos minutos, de raíz a puntas"),
+    s("morning", "Sesión con el GlowBrushPro", "Dos minutos, de raíz a puntas"),
     ...(m.hydration < 55 ? [s("morning", "Hydra Elixir", "Unas gotas en la raya")] : []),
     ...(m.sensitivity > 45 ? [s("morning", "Tónico calmante", "Pulverizar y dar toques")] : []),
     s("evening", "Masaje del cuero cabelludo", "Dos minutos con las yemas"),
     s("weekly", m.oiliness > 60 ? "Lavado clarificante" : "Lavado suave", m.oiliness > 60 ? "Cada 1–2 días" : "2–3 veces por semana"),
     ...(m.flaking > 45 ? [s("weekly", "Exfoliante capilar", "Una vez por semana")] : []),
-    s("weekly", "Escaneo con el Smart Comb", "Control semanal"),
+    s("weekly", "Escaneo con el GlowBrushPro", "Control semanal"),
   ];
 }
 
 /* ---------------- devices ---------------- */
 const owns = (u, type) => u.devices.some((d) => d.type === type);
-const DEV_NAME = { mirror: "Smart Mirror", comb: "Smart Comb" };
+const DEV_NAME = { mirror: "GlowMirrorPro", comb: "GlowBrushPro" };
 /** Pairs the next free demo serial of each requested type. Returns a message. */
 function pairTypes(u, email, types, nickname = "") {
   const done = [], skipped = [];
@@ -278,18 +284,18 @@ function pairTypes(u, email, types, nickname = "") {
     for (let i = 1; i <= 50 && !serial; i++) { const s = `${prefix}-DEMO-${String(i).padStart(4, "0")}`; if (!db.claimed[s]) serial = s; }
     if (!serial) { skipped.push(DEV_NAME[type]); continue; }
     db.claimed[serial] = email;
-    u.devices.push({ serial, type, nickname: (types.length === 1 && nickname) || (type === "mirror" ? "Mi Smart Mirror" : "Mi Smart Comb"), paired: new Date().toISOString() });
+    u.devices.push({ serial, type, nickname: (types.length === 1 && nickname) || (type === "mirror" ? "Mi GlowMirrorPro" : "Mi GlowBrushPro"), paired: new Date().toISOString() });
     done.push(`${DEV_NAME[type]} (${serial})`);
   }
   return { done, skipped };
 }
-const DEVICE_PICKER = (name, withNone) => `<div class="sel-cards" style="${withNone ? "grid-template-columns:repeat(2,1fr)" : ""}">
-  <label><input type="radio" name="${name}" value="mirror" checked><span><i class="ic">◎</i>Smart Mirror</span></label>
-  <label><input type="radio" name="${name}" value="comb"><span><i class="ic">≋</i>Smart Comb</span></label>
+const DEVICE_PICKER = (name, withNone) => `<div class="sel-cards${withNone ? " four" : ""}">
+  <label><input type="radio" name="${name}" value="mirror" checked><span><i class="ic">◎</i>GlowMirrorPro</span></label>
+  <label><input type="radio" name="${name}" value="comb"><span><i class="ic">≋</i>GlowBrushPro</span></label>
   <label><input type="radio" name="${name}" value="both"><span><i class="ic">✦</i>Ambos</span></label>
   ${withNone ? `<label><input type="radio" name="${name}" value="none"><span><i class="ic">○</i>Más tarde</span></label>` : ""}</div>`;
 const typesOf = (v) => (v === "both" ? ["mirror", "comb"] : v === "none" ? [] : [v]);
-const KIND = { skin: { device: "mirror", name: "Smart Mirror", title: "Piel" }, scalp: { device: "comb", name: "Smart Comb", title: "Cuero cabelludo" } };
+const KIND = { skin: { device: "mirror", name: "GlowMirrorPro", title: "Piel" }, scalp: { device: "comb", name: "GlowBrushPro", title: "Cuero cabelludo" } };
 
 /* ---------------- SVG helpers ---------------- */
 function ring(score, size = 150) {
@@ -343,7 +349,7 @@ function vHome() {
   <section class="hero"><div class="wrap"><div>
     <p class="eyebrow" style="margin-bottom:22px">Beauty technology · Skin • Hair</p>
     <h1>Your beauty,<br><em class="gold" style="font-weight:300">understood.</em></h1>
-    <p class="muted" style="margin:28px 0 36px;max-width:520px;font-size:17px">Dos dispositivos inteligentes, una plataforma. El ÉLORIA Smart Mirror lee tu piel. El ÉLORIA Smart Comb lee tu cuero cabelludo. Ten uno o los dos: cada uno ofrece su experiencia completa por sí solo.</p>
+    <p class="muted" style="margin:28px 0 36px;max-width:520px;font-size:17px">Dos dispositivos inteligentes, una plataforma. El ÉLORIA GlowMirrorPro lee tu piel. El ÉLORIA GlowBrushPro lee tu cuero cabelludo. Ten uno o los dos: cada uno ofrece su experiencia completa por sí solo.</p>
     <div style="display:flex;gap:12px;flex-wrap:wrap"><a class="btn goldb" href="#/signup">Crear mi cuenta</a><button class="btn out" onclick="quickDemo()">✦ Ver demo al instante</button></div>
   </div>
   <div class="heroimgs" style="display:grid;grid-template-columns:3fr 2fr;gap:16px;max-width:560px;justify-self:center;width:100%">
@@ -352,20 +358,20 @@ function vHome() {
   </div></div></section>
   <section class="s" id="devices"><div class="wrap"><div class="center"><p class="eyebrow">Los dispositivos</p><h2 class="h2" style="margin-top:14px">Dos rituales. <em style="font-weight:300">Una</em> inteligencia.</h2></div>
   <div class="grid g2" style="margin-top:50px">
-    ${[["Smart Mirror", "Tu piel, leída en luz.", "Hidratación · Equilibrio graso · Poros · Líneas finas · Rojeces · Tono · Elasticidad", "499 €", MIRROR_SVG], ["Smart Comb", "El cuero cabelludo, por fin comprendido.", "Hidratación · Sebo · Descamación · Sensibilidad · Densidad · Vitalidad folicular", "249 €", COMB_SVG]].map(([n, t, m, p, svg]) => `
+    ${[["GlowMirrorPro", "Tu piel, leída en luz.", "Hidratación · Equilibrio graso · Poros · Líneas finas · Rojeces · Tono · Elasticidad", "249,99 €", MIRROR_SVG], ["GlowBrushPro", "El cuero cabelludo, por fin comprendido.", "Hidratación · Sebo · Descamación · Sensibilidad · Densidad · Vitalidad folicular", "89,99 €", COMB_SVG]].map(([n, t, m, p, svg]) => `
     <div class="card pcard" style="padding:0;overflow:hidden"><div style="aspect-ratio:4/5">${svg}</div><div style="padding:28px;display:flex;flex-direction:column"><h3 style="font-size:32px">${n}</h3><p class="serif muted" style="font-style:italic;font-size:19px;margin-top:6px">${t}</p><p class="small muted" style="margin-top:18px">${m}</p><p class="serif" style="font-size:26px;margin-top:auto">${p}</p></div></div>`).join("")}
   </div></div></section>
   <section class="s ivory" id="how"><div class="wrap"><div class="center"><p class="eyebrow">Cómo funciona</p><h2 class="h2" style="margin-top:14px">Del reflejo al <em style="font-weight:300">ritual</em>.</h2></div>
-  <div class="grid g3" style="margin-top:50px">${[["01", "Escanea", "Colócate frente al Smart Mirror o desliza el Smart Comb. La captura tarda segundos."], ["02", "Comprende", "El motor de visión ÉLORIA analiza textura, tono, brillo y equilibrio, y te lo explica."], ["03", "Transforma", "Recibe un ritual personalizado y observa cómo suben tus puntuaciones."]].map(([n, t, d]) => `<div><span class="gold serif" style="font-size:68px;font-weight:300">${n}</span><h3 style="font-size:30px">${t}</h3><p class="small muted" style="margin-top:8px">${d}</p></div>`).join("")}</div></div></section>
+  <div class="grid g3" style="margin-top:50px">${[["01", "Escanea", "Colócate frente al GlowMirrorPro o desliza el GlowBrushPro. La captura tarda segundos."], ["02", "Comprende", "El motor de visión ÉLORIA analiza textura, tono, brillo y equilibrio, y te lo explica."], ["03", "Transforma", "Recibe un ritual personalizado y observa cómo suben tus puntuaciones."]].map(([n, t, d]) => `<div><span class="gold serif" style="font-size:68px;font-weight:300">${n}</span><h3 style="font-size:30px">${t}</h3><p class="small muted" style="margin-top:8px">${d}</p></div>`).join("")}</div></div></section>
   <section class="s dark"><div class="wrap center"><p class="eyebrow" style="color:var(--champagne)">Pruébalo ahora</p><h2 class="h2" style="color:var(--cream);margin:14px 0 18px">Descubre la experiencia ÉLORIA</h2>
-  <p style="color:rgb(250 246 241/.75);max-width:560px;margin:0 auto 30px">Crea tu cuenta y elige si tienes el Smart Mirror, el Smart Comb o ambos. O entra directamente con una cuenta de ejemplo.</p>
+  <p style="color:rgb(250 246 241/.75);max-width:560px;margin:0 auto 30px">Crea tu cuenta y elige si tienes el GlowMirrorPro, el GlowBrushPro o ambos. O entra directamente con una cuenta de ejemplo.</p>
   <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap"><a class="btn goldb" href="#/signup">Crear cuenta</a><button class="btn out" style="color:var(--cream);border-color:rgb(216 193 174/.5)" onclick="quickDemo()">Ver demo</button></div></div></section>
   <footer>© ${new Date().getFullYear()} ÉLORIA SKIN • HAIR · Demo local: los datos se guardan solo en este navegador. Los análisis son estéticos y no sustituyen el consejo médico.</footer>`;
 }
 function vAuth(mode, err = "") {
   const su = mode === "signup";
   return `${header()}<section class="s"><div class="wrap" style="max-width:420px">
-  <h1 style="font-size:48px">${su ? "Crea tu cuenta" : "Bienvenida/o de nuevo"}</h1><p class="small muted" style="margin:8px 0 30px">${su ? "Después empareja tu Smart Mirror, tu Smart Comb o ambos." : "Entra en tu cuenta ÉLORIA."}</p>
+  <h1 style="font-size:48px">${su ? "Crea tu cuenta" : "Bienvenida/o de nuevo"}</h1><p class="small muted" style="margin:8px 0 30px">${su ? "Después empareja tu GlowMirrorPro, tu GlowBrushPro o ambos." : "Entra en tu cuenta ÉLORIA."}</p>
   ${err ? `<div class="alert err">${esc(err)}</div>` : ""}
   <form id="authf">${su ? `<div class="field"><label class="l" for="n">Nombre</label><input id="n" required autocomplete="name"></div>` : ""}
   <div class="field"><label class="l" for="e">Email</label><input id="e" type="email" required autocomplete="email"></div>
@@ -383,7 +389,7 @@ function shell(active, content) {
   return `<div class="mobilebar"><a class="logo" href="#/" style="align-items:flex-start"><b style="font-size:21px">ÉLORIA</b><span>SKIN • HAIR</span></a><span class="small muted" style="text-align:right;line-height:1.2">Bienvenida/o,<br><b class="serif" style="font-size:17px;color:var(--cocoa)">${esc(u.name.split(" ")[0])}</b></span></div>
   <div class="dash"><aside class="side"><a class="logo" href="#/" style="align-items:flex-start;margin:0 8px 30px"><b>ÉLORIA</b><span>SKIN • HAIR</span></a>
   <div style="background:rgb(255 255 255/.7);border-radius:16px;padding:14px 16px;margin-bottom:20px"><div class="xs muted" style="letter-spacing:.2em;text-transform:uppercase">Bienvenida/o</div><div class="serif" style="font-size:21px">${esc(u.name)}</div>
-  <div style="margin-top:6px;display:flex;gap:6px">${m ? `<span class="badge">Mirror</span>` : ""}${c ? `<span class="badge">Comb</span>` : ""}${!m && !c ? `<span class="xs muted">Sin dispositivos</span>` : ""}</div></div>
+  <div style="margin-top:6px;display:flex;gap:6px">${m ? `<span class="badge">GlowMirrorPro</span>` : ""}${c ? `<span class="badge">GlowBrushPro</span>` : ""}${!m && !c ? `<span class="xs muted">Sin dispositivos</span>` : ""}</div></div>
   ${items.map(([k, ic, l, lock]) => `<a class="nav ${active === k ? "on" : ""}" href="#/${k === "dashboard" ? "dashboard" : k}"><span style="width:16px;color:var(--rose)">${ic}</span>${l}${lock ? `<span class="lock">🔒</span>` : ""}</a>`).join("")}
   <a class="nav" style="margin-top:auto" onclick="logout()">↩ Cerrar sesión</a></aside>
   <main class="m">${content}</main></div>
@@ -400,7 +406,7 @@ function locked(kind) {
 function vDashboard() {
   const u = me();
   if (!u.devices.length) return shell("dashboard", ph("Mi ÉLORIA", `Hola, ${esc(u.name.split(" ")[0])}.`, "Empareja tu primer dispositivo para empezar. Cada dispositivo funciona por sí solo.") +
-    `<div class="card center" style="padding:50px"><p class="serif" style="font-size:28px">Aún no tienes dispositivos</p><p class="small muted" style="margin:8px 0 22px">Elige tu modelo (Smart Mirror, Smart Comb o ambos) y empareja en un clic.</p><a class="btn goldb" href="#/devices">Emparejar dispositivo</a></div>`);
+    `<div class="card center" style="padding:50px"><p class="serif" style="font-size:28px">Aún no tienes dispositivos</p><p class="small muted" style="margin:8px 0 22px">Elige tu modelo (GlowMirrorPro, GlowBrushPro o ambos) y empareja en un clic.</p><a class="btn goldb" href="#/devices">Emparejar dispositivo</a></div>`);
   const kinds = ["skin", "scalp"].filter((k) => owns(u, KIND[k].device));
   const cards = kinds.map((k) => {
     const list = u[k], last = list[list.length - 1], prev = list[list.length - 2];
@@ -417,7 +423,7 @@ function vDashboard() {
 function vDevices(msg) {
   const u = me();
   const list = u.devices.length ? u.devices.map((d) => `<div class="card" style="display:flex;gap:20px;align-items:center;flex-wrap:wrap;margin-bottom:16px"><div style="width:110px;aspect-ratio:1;border-radius:18px;overflow:hidden;background:var(--ivory)">${d.type === "mirror" ? MIRROR_SVG : COMB_SVG}</div>
-    <div style="flex:1;min-width:min(100%,200px)"><span class="badge">${d.type === "mirror" ? "Smart Mirror" : "Smart Comb"}</span> <span class="badge okb">Emparejado</span><h3 style="font-size:26px;margin-top:10px">${esc(d.nickname)}</h3><p class="xs muted" style="margin-top:4px">Serie <b style="font-family:monospace">${d.serial}</b> · desde ${fmtDate(d.paired)}</p>
+    <div style="flex:1;min-width:min(100%,200px)"><span class="badge">${d.type === "mirror" ? "GlowMirrorPro" : "GlowBrushPro"}</span> <span class="badge okb">Emparejado</span><h3 style="font-size:26px;margin-top:10px">${esc(d.nickname)}</h3><p class="xs muted" style="margin-top:4px">Serie <b style="font-family:monospace">${d.serial}</b> · desde ${fmtDate(d.paired)}</p>
     <div style="margin-top:12px;display:flex;gap:8px"><a class="btn goldb sm" href="#/scan/${d.type === "mirror" ? "skin" : "scalp"}">Nuevo escaneo</a><button class="btn ghost sm" onclick="unpair('${d.serial}')">Quitar</button></div></div></div>`).join("")
     : `<div class="card center" style="border-style:dashed;box-shadow:none"><p class="serif" style="font-size:24px">Aún no hay dispositivos emparejados</p></div>`;
   return shell("devices", ph("Dispositivos", "Mis dispositivos", "Empareja, gestiona o transfiere tus dispositivos ÉLORIA.") + `<div class="grid gside"><div>${list}</div>
@@ -457,7 +463,7 @@ function vScan(kind, err = "") {
   ${err ? `<div class="alert err" style="margin-top:16px">${esc(err)}</div>` : ""}</div>
   <div class="card" style="background:var(--ivory);box-shadow:none;border:0"><p class="serif" style="font-size:24px">Para mejores resultados</p><ul style="margin-top:12px;padding-left:18px" class="small muted">
   ${(kind === "skin" ? ["Limpia tu rostro y retira el maquillaje.", "Luz suave y frontal, sin contraluz.", "Mira de frente con expresión neutra.", "Escanea a la misma hora cada semana."] : ["Cabello seco y sin productos.", "Separa el pelo en la coronilla o las sienes.", "Acerca la cámara al cuero cabelludo.", "Escanea la misma zona cada semana."]).map((t) => `<li style="margin-bottom:6px">${t}</li>`).join("")}</ul>
-  <p class="xs muted" style="margin-top:16px">La imagen se analiza en tu dispositivo y se guarda solo en este navegador. En el producto real, la foto la tomaría el propio Smart Mirror o Smart Comb.</p></div></div>`);
+  <p class="xs muted" style="margin-top:16px">La imagen se analiza en tu dispositivo y se guarda solo en este navegador. En el producto real, la foto la tomaría el propio GlowMirrorPro o GlowBrushPro.</p></div></div>`);
 }
 function vKind(kind) {
   const u = me(), k = KIND[kind];

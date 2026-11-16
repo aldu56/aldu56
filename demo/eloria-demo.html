@@ -764,7 +764,8 @@ function render(err) {
   const anchor = location.hash.split("#")[2];
   const priv = ["dashboard", "devices", "skin", "scalp", "scan", "report", "routine"];
   if (priv.includes(r) && !me()) { location.hash = "#/login"; return; }
-  if (["login", "signup"].includes(r) && me()) { location.hash = "#/dashboard"; return; }
+  // Opening "Crear cuenta" or "Entrar" always starts fresh, even if the example account is still signed in.
+  if (["login", "signup"].includes(r) && me()) { db.session = null; save(); }
   let html;
   switch (r) {
     case "login": html = vAuth("login"); break;
